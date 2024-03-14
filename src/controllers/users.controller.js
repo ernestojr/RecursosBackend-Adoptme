@@ -2,7 +2,10 @@ import { usersService } from "../services/index.js"
 
 const getAllUsers = async(req,res)=>{
     const users = await usersService.getAll();
-    res.send({status:"success",payload:users})
+    if (res) {
+        return res.send({status:"success",payload:users})
+    }
+    return users.map(u => u.toJSON());
 }
 
 const getUser = async(req,res)=> {
